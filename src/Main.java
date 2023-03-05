@@ -11,11 +11,12 @@ public class Main {
         Scanner input = new Scanner(System.in);
         test.equazion = input.nextLine();
         example.cifer = test.intResult(test.splitter());
-        System.out.println(test.equazion + " = " + example.roman_convert());
+        System.out.println(test.equazion + " = " + example.roman_convert(test.roman));
     }
 }
 class Income {
     String equazion;
+    int roman;
     String[] splitter() {
         String[] result = equazion.split(" ");
         return result;
@@ -114,19 +115,19 @@ class Income {
 
             }
         if (rom == 2){
-            res *= -1;
+            roman = 1;
         }
         else if (arabic == 2) {
-            res *= 1;
+            roman = 0;
         }
         try
         {
-            if ((res == 0) && (rom == 2)) {
-                throw new NoZeroRoman("Ноль не может быть результатом вычислений в римской системе");
+            if ((res <= 0) && (rom == 2)) {
+                throw new NoZeroRoman("Ноль и отрицательные числа не могут быть результатом вычислений в римской системе");
             }
         }
         catch(NoZeroRoman noZero){
-            System.out.println("Ноль не может быть результатом вычислений в римской системе");
+            System.out.println("Ноль и отрицательные числа не могут быть результатом вычислений в римской системе");
             System.exit(1);
         }
 
@@ -136,10 +137,9 @@ class Income {
 }
 class Result {
     int cifer;
-    String roman_convert(){
+    String roman_convert(int roman){
         String result = "";
-        if(cifer < 0) {
-            cifer *= -1;
+        if(roman == 1) {
             Roman[] romans = Roman.values();
             while (cifer > 0) {
                 for (Roman values : romans
